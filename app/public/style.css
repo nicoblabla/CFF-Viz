@@ -1,0 +1,24 @@
+#map {
+    /*width: 2880px;
+    height: 1620px;*/
+    width: 100vw;
+    height: 100vh;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.gmnoprint, .gm-style-cc, img[alt="Google"] {
+    display:none !important;
+}
+
+
+#clock {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    font-size: 50px;
+    font-family: Helvetica, Arial, sans-serif;
+}
