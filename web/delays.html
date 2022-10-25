@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>SwissTrains</title>
+
+    <style>
+        #map {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .gmnoprint, .gm-style-cc, img[alt="Google"] {
+            display:none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="clock"></div>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="delays.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=beta&callback=initMap" async></script>
+    <script>
+        let interval = setInterval(() => {
+            if (document.querySelector('.dismissButton')) {
+                document.querySelector('.dismissButton')?.click();
+                clearInterval(interval);
+            }
+        }, 50);
+    </script>
+
+</body>
+
+</html>
