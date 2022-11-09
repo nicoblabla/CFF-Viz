@@ -1,0 +1,54 @@
+.shadow-1 {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.shadow-4 {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.gmnoprint, .gm-style-cc, img[alt="Google"] {
+    display:none !important;
+}
+
+.map {
+    width: calc(100vw - 400px);
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.right-side {
+    width: 400px;
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    top: 0;
+    box-shadow: rgba(0, 0, 0, 0.64) 0px 1px 4px;
+    padding: 20px;
+}
+
+
+.ticks {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 7px;;
+}
+
+
+.tick {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 1px;
+    background: gray;
+    height: 10px;
+    line-height: 50px;
+    margin-bottom: 20px;
+    font-size: 10px;
+}

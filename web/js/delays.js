@@ -8,8 +8,8 @@ async function initMap() {
     });
 
     Promise.all([
-        fetch("../data/actual_data/clean/delay_by_line.json").then(response => response.json()),
-        fetch("../data/actual_data/clean/stops.json").then(response => response.json()),
+        fetch("../../data/actual_data/clean/delay_by_line.json").then(response => response.json()),
+        fetch("../../data/actual_data/clean/stops.json").then(response => response.json()),
     ]).then(result => {
         draw(result[0], result[1]);
     })

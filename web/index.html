@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFF Viz</title>
+    <link rel="stylesheet" href="libs/bootstrap.min.css">
+    <link rel="stylesheet" href="libs/fullpage.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="fullpage">
+        <div class="section">
+            <div class="text-center mb-5">
+                <h1 class="display-1">CFF Viz</h1>
+                <h5>By Nicola Cosi, Guillaume Digier and Nicolas Laoun</h5>
+            </div>
+            <div class="d-flex justify-content-around align-items-center">
+                <div class="text-center" style="width: 200px; font-size: 30px;">
+                    <div data-number-animation="true" data-number-animation-speed="200">94245</div> trains
+                </div>
+                <div class="text-center" style="width: 200px; font-size: 30px;">
+                    <div data-number-animation="true" data-number-animation-speed="10">1023</div> stations
+                </div>
+                <div class="text-center">
+                    <div class="shadow-1" style="width: 200px; height: 200px; background: rgb(232, 191, 191);"></div>
+                    Some random graph
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="position-relative" style="height: 100vh">
+                <div id="map" class="map"></div>
+                <div class="right-side">
+                    <h2>CFF Delays</h2>
+                    <p>Some description Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque praesentium
+                        distinctio ex beatae, excepturi nobis voluptate. Cupiditate dignissimos quaerat adipisci qui id
+                        sapiente ducimus numquam, commodi repudiandae facilis eaque itaque.</p>
+                    <div class="d-flex justify-content-center mt-5">
+                        <div class="btn-group">
+                            <input type="radio" class="btn-check" name="delayType" id="delayTypeLine" autocomplete="off"
+                                checked>
+                            <label class="btn btn-outline-primary" for="delayTypeLine">Delay by line</label>
+
+                            <input type="radio" class="btn-check" name="delayType" id="delayTypeStations"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="delayTypeStations">Delay by station</label>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-5">
+                        <div class="btn-group">
+                            <input type="radio" class="btn-check" name="delayData" id="delayDataAll" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="delayDataAll">All the data</label>
+
+                            <input type="radio" class="btn-check" name="delayData" id="delayDataDay" autocomplete="off"
+                                checked>
+                            <label class="btn btn-outline-primary" for="delayDataDay">By day of the week</label>
+
+                            <input type="radio" class="btn-check" name="delayData" id="delayDataHour"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="delayDataHour">By hour</label>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <input type="range" class="form-range" min="0" max="6" step="1">
+                        <div class="ticks">
+                            <div class="tick"><span>Monday</span></div>
+                            <div class="tick"><span>Tuesday</span></div>
+                            <div class="tick"><span>Wednesday</span></div>
+                            <div class="tick"><span>Thursday</span></div>
+                            <div class="tick"><span>Friday</span></div>
+                            <div class="tick"><span>Saturday</span></div>
+                            <div class="tick"><span>Sunday</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section">Some section</div>
+        <div class="section">Some section</div>
+    </div>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="js/delays.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=beta&callback=initMap" async></script>
+    <script src="libs/fullpage.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        let interval = setInterval(() => {
+            if (document.querySelector('.dismissButton')) {
+                document.querySelector('.dismissButton')?.click();
+                clearInterval(interval);
+            }
+        }, 50);
+    </script>
+</body>
+
+</html>
