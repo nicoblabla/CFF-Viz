@@ -23,6 +23,14 @@ html, body {
     top: 0;
 }
 
+#map2 {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 .right-side {
     width: 400px;
     height: 100vh;
@@ -51,4 +59,12 @@ html, body {
     line-height: 50px;
     margin-bottom: 20px;
     font-size: 10px;
+}
+
+#clock {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    font-size: 50px;
+    font-family: Helvetica, Arial, sans-serif;
 }
