@@ -33,7 +33,7 @@
         </div>
         <div class="section">
             <div class="position-relative" style="height: 100vh">
-                <div id="map" class="map"></div>
+                <div id="map" class="map scrollable-content"></div>
                 <div class="right-side">
                     <h2>CFF Delays</h2>
                     <p>Some description Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque praesentium
@@ -80,22 +80,63 @@
                 </div>
             </div>
         </div>
-        <div class="section">Some section</div>
-        <div class="section">Some section</div>
-    </div>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script src="js/delays.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=beta&callback=initMap" async></script>
-    <script src="libs/fullpage.min.js"></script>
-    <script src="js/script.js"></script>
-    <script>
-        let interval = setInterval(() => {
-            if (document.querySelector('.dismissButton')) {
-                document.querySelector('.dismissButton')?.click();
-                clearInterval(interval);
+        <div class="section">
+            <div class="position-relative" style="height: 100vh">
+                <div class="left-side">
+                    <h2>Trains vizualisation</h2>
+                    <p>
+                        Some description Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque praesentium
+                        distinctio ex beatae, excepturi nobis voluptate. Cupiditate dignissimos quaerat adipisci qui id
+                        sapiente ducimus numquam, commodi repudiandae facilis eaque itaque.
+                    </p>
+                    <label>Simulation speed</label>
+                    <div class="d-flex justify-content-center mt-5">
+                        <div class="btn-group">
+                            <input type="radio" class="btn-check" name="simulationSpeed" id="simulationSpeed1"
+                                autocomplete="off" onchange="trains.changeSimulationSpeed(1)">
+                            <label class="btn btn-outline-primary" for="simulationSpeed1">x1</label>
+
+                            <input type="radio" class="btn-check" name="simulationSpeed" id="simulationSpeed60"
+                                autocomplete="off" onchange="trains.changeSimulationSpeed(60)" checked>
+                            <label class="btn btn-outline-primary" for="simulationSpeed60">x60</label>
+
+                            <input type="radio" class="btn-check" name="simulationSpeed" id="simulationSpeed600"
+                                autocomplete="off" onchange="trains.changeSimulationSpeed(600)">
+                            <label class="btn btn-outline-primary" for="simulationSpeed600">x600</label>
+
+                            <input type="radio" class="btn-check" name="simulationSpeed" id="simulationSpeed1800"
+                                autocomplete="off" onchange="trains.changeSimulationSpeed(1800)">
+                            <label class="btn btn-outline-primary" for="simulationSpeed1800">x1800</label>
+                        </div>
+                    </div>
+                    <div style="height: 200px"> </div>
+                    <h1 id="clock" class="text-center">Loading</h1>
+                    <button type="button" class="btn btn-link">Reset time to now</button>
+                </div>
+                <div id="map2" class="map scrollable-content"></div>
+            </div>
+        </div>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+        <script src="libs/lz-string.min.js"></script>
+        <script src="js/delays.js"></script>
+        <script src="js/trains.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=beta&callback=initMap" async></script>
+        <script src="libs/fullpage.min.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+            function initMap() {
+                console.log("initMap");
+                console.log(delays);
+                delays.initMap();
+                trains.initMap();
             }
-        }, 50);
-    </script>
+            let interval = setInterval(() => {
+                if (document.querySelector('.dismissButton')) {
+                    document.querySelector('.dismissButton')?.click();
+                    clearInterval(interval);
+                }
+            }, 50);
+        </script>
 </body>
 
 </html>

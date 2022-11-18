@@ -2,7 +2,21 @@ new fullpage('#fullpage', {
     //options here
     autoScrolling:true,
     scrollHorizontally: true,
-    anchors: ['home', 'delays']
+    anchors: ['home', 'delays', 'trains'],
+    scrollOverflow: true,
+    normalScrollElements: '.scrollable-content',
+    afterLoad: (origin, destination) => {
+        console.log("afterLoad", destination.anchor);
+        if (destination.anchor == 'trains') {
+            trains.start();
+        }
+    },
+    onLeave: (origin, destination) => {
+        console.log("onLeave", origin.anchor);
+        if (origin.anchor == 'trains') {
+            trains.stop();
+        }
+    }
 });
 
 

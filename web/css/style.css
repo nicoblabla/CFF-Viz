@@ -24,10 +24,10 @@ html, body {
 }
 
 #map2 {
-    width: 100vw;
+    width: calc(100vw - 400px);
     height: 100vh;
     position: absolute;
-    left: 0;
+    left: 400px;
     top: 0;
 }
 
@@ -39,6 +39,20 @@ html, body {
     top: 0;
     box-shadow: rgba(0, 0, 0, 0.64) 0px 1px 4px;
     padding: 20px;
+    overflow-y: scroll;
+    z-index: 1;
+}
+
+.left-side {
+    width: 400px;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    box-shadow: rgba(0, 0, 0, 0.64) 0px 1px 4px;
+    padding: 20px;
+    overflow-y: scroll;
+    z-index: 1;
 }
 
 
@@ -61,10 +75,6 @@ html, body {
     font-size: 10px;
 }
 
-#clock {
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
-    font-size: 50px;
-    font-family: Helvetica, Arial, sans-serif;
+.fp-watermark {
+    display: none !important;
 }
