@@ -10,23 +10,6 @@ function Trains() {
             mapId: "634d8c221b2996df",
             gestureHandling: 'greedy'
         });
-
-        /*setInterval(() => {
-            draw(t);
-            t+= 600;
-        }, 5000)*/
-        /*stopTimes = await (await fetch('../data/stop_times.json')).json();
-        stops = await (await fetch('../data/stops.json')).json();
-        currentSeconds = dateToSeconds(new Date());
-        draw(currentSeconds)*/
-        /*if (!pause)
-            draw(currentSeconds)*/
-        //this.start();
-
-        /*let a = LZString.compressToUint8Array(JSON.stringify(stopTimes));
-        console.log(a);*/
-
-        //2880
     }
 
     let currentSeconds = null;
@@ -101,14 +84,6 @@ function Trains() {
             clearInterval(interval);
         }
     }, 50);
-
-    let tilt = 100, heading = 0, zoom = 10;
-    /*setInterval(() => {
-
-        heading+=0.2;
-        map.moveCamera({tilt, heading});
-
-    }, 1000/30)*/
 
     function dateToSeconds(d) {
         return d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds() + d.getMilliseconds() / 1000;
