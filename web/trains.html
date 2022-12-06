@@ -16,6 +16,18 @@
     <script src="js/trains.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=beta&callback=initMap" async></script>
 
+    <script>
+        function initMap() {
+            trains.initMap();
+            trains.start();
+        }
+        let interval = setInterval(() => {
+            if (document.querySelector('.dismissButton')) {
+                document.querySelector('.dismissButton')?.click();
+                clearInterval(interval);
+            }
+        }, 50);
+    </script>
 </body>
 
 </html>
