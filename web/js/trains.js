@@ -238,9 +238,9 @@ function Trains() {
     this.start = async function () {
 
         if (!stopTimes) {
-            let buffer = await (await fetch('../data/stop_times.json.lzs')).arrayBuffer();
+            let buffer = await (await fetch('data/stop_times.json.lzs')).arrayBuffer();
             stopTimes = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(buffer)));
-            stops = await (await fetch('../data/stops.json')).json();
+            stops = await (await fetch('data/stops.json')).json();
             currentSeconds = dateToSeconds(new Date());
         }
 

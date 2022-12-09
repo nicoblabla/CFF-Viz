@@ -1,6 +1,13 @@
 function Delays() {
     let map;
-    this.initMap = async function() {
+    let delayData = {};
+
+    let lineOrStation = 'line';
+    let allOrDayOrHour = 'all';
+    let subOption = 0;
+    let mapObjects = [];
+
+    this.initMap = async function () {
         map = new google.maps.Map(document.getElementById("map"), {
             zoom: 8.5,
             center: { lat: 46.773357, lng: 8.2143418 },
@@ -10,35 +17,102 @@ function Delays() {
         });
 
         Promise.all([
-            fetch("../../data/actual_data/clean/delay_by_line.json").then(response => response.json()),
-            fetch("../../data/actual_data/clean/stops.json").then(response => response.json()),
+            fetch("./data/stops.json").then(response => response.json()),
+            fetch("./data/delay_by_line.json").then(response => response.json()),
+            fetch("./data/delay_by_line_by_day.json").then(response => response.json()),
+            fetch("./data/delay_by_line_by_hour.json").then(response => response.json()),
+            fetch("./data/delay_by_station.json").then(response => response.json()),
+            fetch("./data/delay_by_station_by_day.json").then(response => response.json()),
+            fetch("./data/delay_by_station_by_hour.json").then(response => response.json()),
+
         ]).then(result => {
-            draw(result[0], result[1]);
-        })
+            delayData = {
+                stops: result[0],
+                line: {
+                    all: result[1],
+                    day: result[2],
+                    hour: result[3]
+                },
+                station: {
+                    all: result[4],
+                    day: result[5],
+                    hour: result[6]
+                }
+            }
+            draw();
+        });
     }
 
-    function draw(delay_by_line, stops) {
-        let delays = Object.values(delay_by_line).map(i => i.totalDelay / i.nbTrain);
-        let max = Math.max(...delays)
-        for (let line in delay_by_line) {
-            let delay = delay_by_line[line];
-            let delay_in_minutes = delay.totalDelay / delay.nbTrain;
+    function clear() {
+        while (mapObjects.length > 0) {
+            o = mapObjects.pop();
+            o.setMap(null);
+        }
+    }
 
-            const linePath = new google.maps.Polyline({
-                path: [stops[delay.stationA], stops[delay.stationB]],
-                geodesic: true,
-                strokeColor: lerpColor("#00FF00", "#FF0000", delay_in_minutes / max),
-                strokeOpacity: 1.0,
-                strokeWeight: (delay.totalDelay / delay.nbTrain) / 60,
-            });
-            
-            linePath.setMap(map);
+    function draw() {
+        clear();
+        let currentData = delayData[lineOrStation][allOrDayOrHour];
+        if (allOrDayOrHour != 'all') {
+            currentData = currentData[subOption];
+        }
+        let stops = delayData['stops'];
+        if (lineOrStation === 'line') {
+            let delays = Object.values(currentData).map(i => i.totalDelay / i.nbTrain);
+            let max = Math.max(...delays)
+            for (let line in currentData) {
+                let delay = currentData[line];
+                let delay_in_minutes = delay.totalDelay / delay.nbTrain;
+
+                if (!(delay.stationA in stops)) {
+                    continue;
+                }
+                if (!(delay.stationB in stops)) {
+                    continue;
+                }
+
+                const linePath = new google.maps.Polyline({
+                    path: [stops[delay.stationA], stops[delay.stationB]],
+                    geodesic: true,
+                    strokeColor: lerpColor("#00FF00", "#FF0000", delay_in_minutes / max),
+                    strokeOpacity: 1.0,
+                    strokeWeight: 1 + (delay.totalDelay / delay.nbTrain) / 600,
+                });
+
+                linePath.setMap(map);
+                mapObjects.push(linePath);
+            }
+        } else if (lineOrStation === 'station') {
+            let delays = Object.values(currentData).map(i => i.totalDelay / i.nbTrain);
+            let max = Math.max(...delays);
+            for (let station in currentData) {
+                let delay = currentData[station];
+                let delay_in_minutes = delay.totalDelay / delay.nbTrain;
+
+                if (!(delay.stationName in stops)) {
+                    continue;
+                }
+
+                const circle = new google.maps.Circle({
+                    geodesic: true,
+                    strokeColor: lerpColor("#00FF00", "#FF0000", delay_in_minutes / max),
+                    fillColor: lerpColor("#00FF00", "#FF0000", delay_in_minutes / max),
+                    strokeOpacity: 1.0,
+                    radius: (delay.totalDelay / delay.nbTrain),
+                    fillOpacity: 1,
+                    center: stops[delay.stationName],
+                });
+
+                circle.setMap(map);
+                mapObjects.push(circle);
+
+            }
         }
     }
 
 
     //https://gist.github.com/rosszurowski/67f04465c424a9bc0dae
-    function lerpColor(a, b, amount) { 
+    function lerpColor(a, b, amount) {
 
         var ah = parseInt(a.replace(/#/g, ''), 16),
             ar = ah >> 16, ag = ah >> 8 & 0xff, ab = ah & 0xff,
@@ -50,6 +124,37 @@ function Delays() {
 
         return '#' + ((1 << 24) + (rr << 16) + (rg << 8) + rb | 0).toString(16).slice(1);
     }
+
+    this.changeType = (radio) => {
+        lineOrStation = radio.value;
+        draw();
+    }
+
+    this.changeFrame = (radio) => {
+        allOrDayOrHour = radio.value;
+        if (allOrDayOrHour == 'all') {
+            document.getElementById('subOptionDay').style.display = 'none';
+            document.getElementById('subOptionHour').style.display = 'none';
+        } else if (allOrDayOrHour == 'day') {
+            document.getElementById('subOptionDay').style.display =  'block';
+            document.getElementById('subOptionHour').style.display = 'none';
+            subOption = document.getElementById('subOptionDayRange').value;
+            console.log(document.getElementById('subOptionDay'))
+            console.log(subOption);
+        } else if (allOrDayOrHour == 'hour') {
+            document.getElementById('subOptionDay').style.display = 'none';
+            document.getElementById('subOptionHour').style.display = 'block';
+            subOption = document.getElementById('subOptionHourRange').value;
+        }
+        draw();
+    }
+
+    this.changeSubOption = (value) => {
+        subOption = value;
+        draw();
+    }
+
+
 }
 
 let delays = new Delays();

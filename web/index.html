@@ -41,40 +41,70 @@
                         sapiente ducimus numquam, commodi repudiandae facilis eaque itaque.</p>
                     <div class="d-flex justify-content-center mt-5">
                         <div class="btn-group">
-                            <input type="radio" class="btn-check" name="delayType" id="delayTypeLine" autocomplete="off"
-                                checked>
+                            <input type="radio" class="btn-check" name="delayType" id="delayTypeLine" checked
+                                onclick="delays.changeType(this)" value="line">
                             <label class="btn btn-outline-primary" for="delayTypeLine">Delay by line</label>
 
                             <input type="radio" class="btn-check" name="delayType" id="delayTypeStations"
-                                autocomplete="off">
+                                value="station" onclick="delays.changeType(this)">
                             <label class="btn btn-outline-primary" for="delayTypeStations">Delay by station</label>
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-center mt-5">
                         <div class="btn-group">
-                            <input type="radio" class="btn-check" name="delayData" id="delayDataAll" autocomplete="off">
+                            <input type="radio" class="btn-check" name="delayData" id="delayDataAll" autocomplete="off"
+                                checked value="all" onclick="delays.changeFrame(this)">
                             <label class="btn btn-outline-primary" for="delayDataAll">All the data</label>
 
                             <input type="radio" class="btn-check" name="delayData" id="delayDataDay" autocomplete="off"
-                                checked>
+                                value="day" onclick="delays.changeFrame(this)">
                             <label class="btn btn-outline-primary" for="delayDataDay">By day of the week</label>
 
-                            <input type="radio" class="btn-check" name="delayData" id="delayDataHour"
-                                autocomplete="off">
+                            <input type="radio" class="btn-check" name="delayData" id="delayDataHour" autocomplete="off"
+                                value="hour" onclick="delays.changeFrame(this)">
                             <label class="btn btn-outline-primary" for="delayDataHour">By hour</label>
                         </div>
                     </div>
-                    <div class="mt-5">
-                        <input type="range" class="form-range" min="0" max="6" step="1">
+                    <div class="mt-5" id="subOptionDay" style="display: none">
+                        <input type="range" class="form-range" min="0" max="6" step="1" id="subOptionDayRange" oninput="delays.changeSubOption(this.value)">
                         <div class="ticks">
-                            <div class="tick"><span>Monday</span></div>
-                            <div class="tick"><span>Tuesday</span></div>
-                            <div class="tick"><span>Wednesday</span></div>
-                            <div class="tick"><span>Thursday</span></div>
-                            <div class="tick"><span>Friday</span></div>
-                            <div class="tick"><span>Saturday</span></div>
-                            <div class="tick"><span>Sunday</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(0)"><span>Monday</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(1)"><span>Tuesday</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(2)"><span>Wednesday</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(3)"><span>Thursday</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(4)"><span>Friday</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(5)"><span>Saturday</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(6)"><span>Sunday</span></div>
+                        </div>
+                    </div>
+                    <div class="mt-5" id="subOptionHour" style="display: none">
+                        <input type="range" class="form-range" min="0" max="23" step="1" id="subOptionHourRange" oninput="delays.changeSubOption(this.value)">
+                        <div class="ticks">
+                            <div class="tick" onclick="delays.changeSubOption(0)"><span>0</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(1)"><span>1</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(2)"><span>2</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(3)"><span>3</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(4)"><span>4</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(5)"><span>5</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(6)"><span>6</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(7)"><span>7</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(8)"><span>8</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(9)"><span>9</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(10)"><span>10</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(11)"><span>11</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(12)"><span>12</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(13)"><span>13</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(14)"><span>14</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(15)"><span>15</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(16)"><span>16</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(17)"><span>17</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(18)"><span>18</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(19)"><span>19</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(20)"><span>20</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(21)"><span>21</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(22)"><span>22</span></div>
+                            <div class="tick" onclick="delays.changeSubOption(23)"><span>23</span></div>
                         </div>
                     </div>
                 </div>
