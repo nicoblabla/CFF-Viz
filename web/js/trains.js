@@ -63,7 +63,6 @@ function Trains() {
                 panes.overlayLayer.appendChild(this.div);
             }
             draw() {
-                console.log("draw1");
                 // We use the south-west and north-east
                 // coordinates of the overlay to peg it to the correct position and size.
                 // To do this, we need to retrieve the projection from the overlay.
@@ -109,7 +108,6 @@ function Trains() {
 
                 if (!this.overlayProjection)
                     return;
-                console.log("refresh1");
                 const sw = this.overlayProjection.fromLatLngToDivPixel(
                     this.bounds.getSouthWest()
                 );
@@ -128,7 +126,6 @@ function Trains() {
                     );
 
                     ctx.beginPath();
-                    console.log(pos.x - sw.x, pos.y - ne.y);
                     ctx.arc(pos.x - sw.x, pos.y - ne.y, 3, 0, 2 * Math.PI);
                     ctx.fill();
                 }
@@ -148,7 +145,6 @@ function Trains() {
 
     let circles = [];
     function draw(t) {
-        console.log("draw");
         let trains = getTrains(t);
         document.getElementById('clock').innerHTML = secondToTime(t);
         for (let i = 0; i < trains.length; i++) {
