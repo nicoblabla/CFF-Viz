@@ -97,7 +97,7 @@ function Trains() {
             refresh(t) {
 
 
-                if (!pause && false) {
+                if (!pause) {
                     setTimeout(() => {
                         if (!pause) {
                             currentSeconds += simulationSpeed;
