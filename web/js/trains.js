@@ -91,7 +91,6 @@ function Trains() {
                 }
 
 
-                
 
             }
 
@@ -109,7 +108,7 @@ function Trains() {
                 }
 
                 if (!this.overlayProjection)
-                return;
+                    return;
                 console.log("refresh1");
                 const sw = this.overlayProjection.fromLatLngToDivPixel(
                     this.bounds.getSouthWest()
@@ -129,8 +128,8 @@ function Trains() {
                     );
 
                     ctx.beginPath();
-                    console.log(pos.x-sw.x, pos.y-ne.y);
-                    ctx.arc(pos.x-sw.x, pos.y-ne.y, 3, 0, 2 * Math.PI);
+                    console.log(pos.x - sw.x, pos.y - ne.y);
+                    ctx.arc(pos.x - sw.x, pos.y - ne.y, 3, 0, 2 * Math.PI);
                     ctx.fill();
                 }
             }
@@ -240,7 +239,8 @@ function Trains() {
         if (!stopTimes) {
             let buffer = await (await fetch('data/stop_times.json.lzs')).arrayBuffer();
             stopTimes = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(buffer)));
-            stops = await (await fetch('data/stops.json')).json();
+            console.log(stopTimes);
+            stops = await (await fetch('data/stopsTrains.json')).json();
             currentSeconds = dateToSeconds(new Date());
         }
 
