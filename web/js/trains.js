@@ -97,7 +97,7 @@ function Trains() {
             refresh(t) {
 
 
-                if (!pause) {
+                if (!pause && false) {
                     setTimeout(() => {
                         if (!pause) {
                             currentSeconds += simulationSpeed;
@@ -237,8 +237,9 @@ function Trains() {
     this.start = async function () {
 
         if (!stopTimes) {
-            let buffer = await (await fetch('data/stop_times.json.lzs')).arrayBuffer();
-            stopTimes = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(buffer)));
+            let buffer = await (await fetch('data/stop_times.json.utf16.lzs')).text();
+            console.log(buffer);
+            stopTimes = JSON.parse(LZString.decompressFromUTF16(buffer));
             console.log(stopTimes);
             stops = await (await fetch('data/stopsTrains.json')).json();
             currentSeconds = dateToSeconds(new Date());
