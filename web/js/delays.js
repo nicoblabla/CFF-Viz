@@ -6,6 +6,7 @@ function Delays() {
     let allOrDayOrHour = 'all';
     let subOption = 0;
     let mapObjects = [];
+    let popup = null;
 
     this.initMap = async function () {
         map = new google.maps.Map(document.getElementById("map"), {
@@ -58,7 +59,9 @@ function Delays() {
         }
         let stops = delayData['stops'];
         if (lineOrStation === 'line') {
-            let delays = Object.values(currentData).map(i => i.totalDelay / i.nbTrain);
+            let delays = Object.values(currentData)
+                .filter(d => d.nbTrain >= 10)
+                .map(i => i.totalDelay / i.nbTrain);
             let max = Math.max(...delays)
             for (let line in currentData) {
                 let delay = currentData[line];
@@ -70,6 +73,9 @@ function Delays() {
                 if (!(delay.stationB in stops)) {
                     continue;
                 }
+                if (delay.nbTrain < 10) {
+                    //break;
+                }
 
                 const linePath = new google.maps.Polyline({
                     path: [stops[delay.stationA], stops[delay.stationB]],
@@ -77,6 +83,26 @@ function Delays() {
                     strokeColor: lerpColor("#00FF00", "#FF0000", delay_in_minutes / max),
                     strokeOpacity: 1.0,
                     strokeWeight: 1 + (delay.totalDelay / delay.nbTrain) / 600,
+                });
+
+                linePath.addListener('click', (e) => {
+                    if (popup) {
+                        popup.setMap(null);
+                    }
+                    popup = new google.maps.InfoWindow({
+                        content: `
+                        <h2>${delay.stationA} → ${delay.stationB}</h2>
+                        <b>Train count:</b> ${delay.nbTrain}<br>
+                        <b>Mean delay:</b> ${Math.round(delay.totalDelay / delay.nbTrain / 60)} minutes<br>
+                        <b>Cancelled train:</b> ${delay.nbCancelled}
+                        `,
+                    });
+                    console.log("Click");
+                    popup.open({
+                        map: map,
+                        anchor: linePath
+                    });
+                    popup.setPosition(e.latLng)
                 });
 
                 linePath.setMap(map);
@@ -136,7 +162,7 @@ function Delays() {
             document.getElementById('subOptionDay').style.display = 'none';
             document.getElementById('subOptionHour').style.display = 'none';
         } else if (allOrDayOrHour == 'day') {
-            document.getElementById('subOptionDay').style.display =  'block';
+            document.getElementById('subOptionDay').style.display = 'block';
             document.getElementById('subOptionHour').style.display = 'none';
             subOption = document.getElementById('subOptionDayRange').value;
             console.log(document.getElementById('subOptionDay'))
