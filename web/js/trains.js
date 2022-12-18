@@ -13,6 +13,7 @@ function Trains() {
             mapId: "634d8c221b2996df",
             gestureHandling: 'greedy'
         });
+        console.log("initMap11");
 
         const bounds = new google.maps.LatLngBounds(
             new google.maps.LatLng(45.7769477403, 6.02260949059),
@@ -266,6 +267,19 @@ function Trains() {
     this.resetTime = function () {
         currentSeconds = dateToSeconds(new Date());
     }
+
+    this.setMapTheme = function (theme) {
+        map = new google.maps.Map(document.getElementById("map2"), {
+            zoom: 8.5,
+            center: { lat: 46.773357, lng: 8.2143418 },
+            disableDefaultUI: true,
+            mapId: theme,
+            gestureHandling: 'greedy'
+        });
+        overlay.setMap(map);
+        console.log("initMap22");
+    }
+
 }
 let trains = new Trains();
 

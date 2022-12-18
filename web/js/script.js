@@ -1,18 +1,16 @@
 new fullpage('#fullpage', {
     //options here
-    autoScrolling:true,
+    autoScrolling: true,
     scrollHorizontally: true,
     anchors: ['home', 'delays', 'trains'],
     scrollOverflow: true,
     normalScrollElements: '.scrollable-content',
     afterLoad: (origin, destination) => {
-        console.log("afterLoad", destination.anchor);
         if (destination.anchor == 'trains') {
             trains.start();
         }
     },
     onLeave: (origin, destination) => {
-        console.log("onLeave", origin.anchor);
         if (origin.anchor == 'trains') {
             trains.stop();
         }
@@ -22,12 +20,12 @@ new fullpage('#fullpage', {
 
 function incNumberAnimation(i, end, element) {
     if (i <= end) {
-      element.innerHTML = i;
-      setTimeout(function() {
-      incNumberAnimation(i + 1, end, element);
-      }, speed);
+        element.innerHTML = i;
+        setTimeout(function () {
+            incNumberAnimation(i + 1, end, element);
+        }, speed);
     }
-  }
+}
 
 function startNumberAnimation() {
     let elements = document.querySelectorAll('[data-number-animation="true"]');
@@ -39,8 +37,7 @@ function startNumberAnimation() {
     }
 
     async function animation(element, end, speed) {
-        console.log(speed);
-        for (let i = 0; i <= end; i+=speed) {
+        for (let i = 0; i <= end; i += speed) {
             element.innerHTML = Math.round(easeInOutCubic(i / end) * end);
             await sleep(1);
         }
@@ -59,4 +56,5 @@ async function sleep(delay) {
 function easeInOutCubic(x) {
     //return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
     //return x < 0.5 ? 16 * x * x * x * x * x : 1 - Math.pow(-2 * x + 2, 5) / 2;
-    return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);}
+    return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
+}

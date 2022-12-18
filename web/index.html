@@ -218,18 +218,22 @@
         <script src="js/script.js"></script>
         <script>
             function initMap() {
-                console.log("initMap");
-                console.log(delays);
                 delays.initMap();
                 trains.initMap();
             }
             let interval = setInterval(() => {
-                inverseColors();
                 if (document.querySelector('.dismissButton')) {
                     document.querySelector('.dismissButton')?.click();
-                    clearInterval(interval);
+                    //clearInterval(interval);
                 }
             }, 50);
+
+            setTimeout(() => {
+                inverseColors();
+            }, 10);
+            setTimeout(() => {
+                inverseColors();
+            }, 200);
 
             function toggleDarkMode() {
                 darkmode.toggleDarkMode();
@@ -238,13 +242,20 @@
 
             function inverseColors() {
                 let filter = "invert(0)";
+                let theme = "634d8c221b2996df";
                 if (darkmode.inDarkMode) {
                     filter = "invert(1)";
+                    theme = "ba8d9b8c2bd0cb9d";
                 }
+
+                delays.setMapTheme(theme);
+                trains.setMapTheme(theme);
+
                 let nodes = document.querySelectorAll('.invert-on-darkmode');
                 for (let node of nodes) {
                     node.style.filter = filter;
                 }
+
             }
         </script>
 </body>
