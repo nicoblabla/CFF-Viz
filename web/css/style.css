@@ -78,3 +78,73 @@ html, body {
 .fp-watermark {
     display: none !important;
 }
+
+
+.cff-clock {
+  display:block;
+  position:relative;
+  width:320px;
+  height:320px;
+  margin:30px auto;
+  border-radius:50%;
+  background:whitesmoke;
+  border:10px solid #999;
+}
+
+.cff-hand { position:absolute; opacity:1; transition:opacity 1s; }
+
+.cff-tick-container { position:absolute; left:145px; top:15px; }
+.cff-tick { width:10px; height:270px; transform-origin:center center; transform:rotate(30deg); }
+
+.cff-tick:before, .cff-tick:after { position:absolute; display:block; content:""; width:10px; height:25px; background:#222; }
+.cff-tick:after { bottom:0; }
+
+
+#cffMinute {
+  width:12px;
+  height:160px;
+  top:15px;
+  background:rgba(20,20,20,0.9);
+  left:144px;
+  transform-origin:center 135px;
+}
+
+#cffHour {
+  width:16px;
+  height:132px;
+  top:50px;
+  background:rgba(20,20,20,0.9);
+  left:142px;
+  transform-origin:center 100px;
+}
+
+#cffSecond {
+  width:4px;
+  height:155px;
+  top:30px;
+  background:rgb(255,70,70);
+  left:149px;
+  transform-origin:center 120px;
+  opacity: 0;
+  /*animation:seconds 1s linear infinite;*/
+}
+
+@keyframes seconds {
+  0%{ transform:rotate(0); }
+  97.5%,100%{ transform:rotate(1turn); }
+}
+
+#cffSecond:after {
+  content:"";
+  background:rgb(255,70,70);
+  display:block;
+   width:20px;
+  height:20px;
+  border-radius:50%;
+  position:absolute;
+  left:-8px;
+}
+
+#clock {
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+}

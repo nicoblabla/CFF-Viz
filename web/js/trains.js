@@ -106,6 +106,7 @@ function Trains() {
                     }, 60);
                 }
 
+
                 if (!this.overlayProjection)
                     return;
                 const sw = this.overlayProjection.fromLatLngToDivPixel(
@@ -117,8 +118,9 @@ function Trains() {
 
                 let trains = getTrains(t);
                 ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                ctx.fillStyle = "red";
                 document.getElementById('clock').innerHTML = secondToTime(t);
+                updateClock(t);
+                ctx.fillStyle = "red";
                 for (let i = 0; i < trains.length; i++) {
 
                     const pos = this.overlayProjection.fromLatLngToDivPixel(
@@ -250,6 +252,11 @@ function Trains() {
 
     this.changeSimulationSpeed = function (speed) {
         simulationSpeed = speed;
+        if (speed > 10) {
+            document.getElementById('cffSecond').style.opacity = 0;
+        } else {
+            document.getElementById('cffSecond').style.opacity = 1;
+        }
     }
 
     this.addTime = function (d) {
@@ -261,3 +268,24 @@ function Trains() {
     }
 }
 let trains = new Trains();
+
+function updateClock(s) {
+    s = Math.round(s);
+    let s1 = s % 60;
+    let m = s / 60 % 60;
+    let h = Math.floor(s / 3600) % 24;
+
+    let hdegree = h * 30 + (m / 2);
+    let hrotate = "rotate(" + hdegree + "deg)";
+
+    let mdegree = m * 6;
+    let mrotate = "rotate(" + mdegree + "deg)";
+
+    let sdegree = s1 * 6;
+    let srotate = "rotate(" + sdegree + "deg)";
+
+
+    document.getElementById('cffHour').style.transform = hrotate;
+    document.getElementById('cffMinute').style.transform = mrotate;
+    document.getElementById('cffSecond').style.transform = srotate;
+}
