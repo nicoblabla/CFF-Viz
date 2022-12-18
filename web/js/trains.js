@@ -18,10 +18,7 @@ function Trains() {
             new google.maps.LatLng(45.7769477403, 6.02260949059),
             new google.maps.LatLng(47.8308275417, 10.4427014502)
         );
-        // The photograph is courtesy of the U.S. Geological Survey.
-        let image = "https://developers.google.com/maps/documentation/javascript/";
-
-        image += "examples/full/images/talkeetna.png";
+        let previousTime = (new Date()).getTime();
 
         class Overlay extends google.maps.OverlayView {
             bounds;
@@ -29,10 +26,9 @@ function Trains() {
             div;
             overlayProjection;
             canvas;
-            constructor(bounds, image) {
+            constructor(bounds) {
                 super();
                 this.bounds = bounds;
-                this.image = image;
             }
 
             onAdd() {
@@ -93,14 +89,18 @@ function Trains() {
 
             }
 
+
             refresh(t) {
 
 
                 if (!pause) {
                     setTimeout(() => {
                         if (!pause) {
-                            currentSeconds += simulationSpeed;
+                            let currentTime = (new Date()).getTime();
+                            let elapsedTime = currentTime - previousTime
+                            currentSeconds += simulationSpeed * elapsedTime / 1000;
                             currentSeconds %= 86400; // 24 * 3600
+                            previousTime = currentTime;
                             this.refresh(currentSeconds)
                         }
                     }, 60);
@@ -133,7 +133,7 @@ function Trains() {
 
         }
 
-        overlay = new Overlay(bounds, image);
+        overlay = new Overlay(bounds);
 
         overlay.setMap(map);
 
@@ -234,9 +234,7 @@ function Trains() {
 
         if (!stopTimes) {
             let buffer = await (await fetch('data/stop_times.json.utf16.lzs')).text();
-            console.log(buffer);
             stopTimes = JSON.parse(LZString.decompressFromUTF16(buffer));
-            console.log(stopTimes);
             stops = await (await fetch('data/stopsTrains.json')).json();
             currentSeconds = dateToSeconds(new Date());
         }
@@ -252,6 +250,14 @@ function Trains() {
 
     this.changeSimulationSpeed = function (speed) {
         simulationSpeed = speed;
+    }
+
+    this.addTime = function (d) {
+        currentSeconds += d;
+    }
+
+    this.resetTime = function () {
+        currentSeconds = dateToSeconds(new Date());
     }
 }
 let trains = new Trains();

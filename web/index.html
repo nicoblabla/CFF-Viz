@@ -67,7 +67,8 @@
                         </div>
                     </div>
                     <div class="mt-5" id="subOptionDay" style="display: none">
-                        <input type="range" class="form-range" min="0" max="6" step="1" id="subOptionDayRange" oninput="delays.changeSubOption(this.value)">
+                        <input type="range" class="form-range" min="0" max="6" step="1" id="subOptionDayRange"
+                            oninput="delays.changeSubOption(this.value)">
                         <div class="ticks">
                             <div class="tick" onclick="delays.changeSubOption(0)"><span>Monday</span></div>
                             <div class="tick" onclick="delays.changeSubOption(1)"><span>Tuesday</span></div>
@@ -79,7 +80,8 @@
                         </div>
                     </div>
                     <div class="mt-5" id="subOptionHour" style="display: none">
-                        <input type="range" class="form-range" min="0" max="23" step="1" id="subOptionHourRange" oninput="delays.changeSubOption(this.value)">
+                        <input type="range" class="form-range" min="0" max="23" step="1" id="subOptionHourRange"
+                            oninput="delays.changeSubOption(this.value)">
                         <div class="ticks">
                             <div class="tick" onclick="delays.changeSubOption(0)"><span>0</span></div>
                             <div class="tick" onclick="delays.changeSubOption(1)"><span>1</span></div>
@@ -120,7 +122,7 @@
                         sapiente ducimus numquam, commodi repudiandae facilis eaque itaque.
                     </p>
                     <label>Simulation speed</label>
-                    <div class="d-flex justify-content-center mt-5">
+                    <div class="d-flex justify-content-center mt-2">
                         <div class="btn-group">
                             <input type="radio" class="btn-check" name="simulationSpeed" id="simulationSpeed1"
                                 autocomplete="off" onchange="trains.changeSimulationSpeed(1)">
@@ -139,9 +141,17 @@
                             <label class="btn btn-outline-primary" for="simulationSpeed1800">x1800</label>
                         </div>
                     </div>
+                    <div class="d-flex justify-content-center mt-2">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-primary" onclick="trains.addTime(-3600)">- 1
+                                hour</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="trains.addTime(3600)">+ 1
+                                hour</button>
+                        </div>
+                    </div>
                     <div style="height: 200px"> </div>
                     <h1 id="clock" class="text-center">Loading</h1>
-                    <button type="button" class="btn btn-link">Reset time to now</button>
+                    <button type="button" class="btn btn-link" onclick="trains.resetTime()">Reset time to now</button>
                 </div>
                 <div id="map2" class="map scrollable-content"></div>
             </div>
