@@ -18,11 +18,13 @@
 <body>
     <div id="fullpage">
         <div class="section position-relative">
-            <div class="menu">
+            <div class="menu pe-3">
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchDarkMode"
-                        onclick="toggleDarkMode();" checked>
-                    <label class="form-check-label" for="flexSwitchDarkMode">Dark mode</label>
+                    <input class="form-check-input" style="font-size:25px;" type="checkbox" role="switch"
+                        id="flexSwitchDarkMode" onclick="toggleDarkMode();" checked>
+                    <label class="form-check-label" for="flexSwitchDarkMode">
+                        <i class="bi bi-moon-stars" style="font-size:25px;" id="iconDarkMode"></i>
+                    </label>
                 </div>
             </div>
             <div class="text-center mb-5">
@@ -280,6 +282,9 @@
             function toggleDarkMode() {
                 darkmode.toggleDarkMode();
                 inverseColors();
+
+                document.getElementById("iconDarkMode").classList.toggle('bi-sun');
+                document.getElementById("iconDarkMode").classList.toggle('bi-moon-stars');
             }
 
             function inverseColors() {
@@ -297,7 +302,6 @@
                 for (let node of nodes) {
                     node.style.filter = filter;
                 }
-
             }
         </script>
 </body>
