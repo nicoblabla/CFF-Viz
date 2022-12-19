@@ -496,7 +496,7 @@ async function manageAgencies() {
     });
     // label
     let labelOverall = document.createElement('label');
-    labelOverall.classList.add('fw-bold', 'mb-0');
+    labelOverall.classList.add('fw-bold', 'mb-0', 'fst-italic');
     labelOverall.htmlFor = 'All';
     labelOverall.innerText = 'Toggle all';
     // Adding
