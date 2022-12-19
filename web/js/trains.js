@@ -14,7 +14,6 @@ function Trains() {
             mapId: "634d8c221b2996df",
             gestureHandling: 'greedy'
         });
-        console.log("initMap11");
 
         const bounds = new google.maps.LatLngBounds(
             new google.maps.LatLng(45.7769477403, 6.02260949059),
@@ -272,7 +271,6 @@ function Trains() {
             gestureHandling: 'greedy'
         });
         overlay.setMap(map);
-        console.log("initMap22");
     }
 }
 
