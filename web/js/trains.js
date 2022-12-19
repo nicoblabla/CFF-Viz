@@ -263,14 +263,18 @@ function Trains() {
     }
 
     this.setMapTheme = function (theme) {
-        map = new google.maps.Map(document.getElementById("map2"), {
-            zoom: 8.5,
-            center: { lat: 46.773357, lng: 8.2143418 },
-            disableDefaultUI: true,
-            mapId: theme,
-            gestureHandling: 'greedy'
-        });
-        overlay.setMap(map);
+        try {
+            map = new google.maps.Map(document.getElementById("map2"), {
+                zoom: 8.5,
+                center: { lat: 46.773357, lng: 8.2143418 },
+                disableDefaultUI: true,
+                mapId: theme,
+                gestureHandling: 'greedy'
+            });
+            overlay.setMap(map);
+        } catch {
+
+        }
     }
 }
 

@@ -178,14 +178,14 @@ function Delays() {
     }
 
     this.setMapTheme = function (theme) {
-        map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 8.5,
-            center: { lat: 46.773357, lng: 8.2143418 },
-            disableDefaultUI: true,
-            mapId: theme,
-            gestureHandling: 'greedy'
-        });
         try {
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 8.5,
+                center: { lat: 46.773357, lng: 8.2143418 },
+                disableDefaultUI: true,
+                mapId: theme,
+                gestureHandling: 'greedy'
+            });
             draw();
         } catch { };
     }
