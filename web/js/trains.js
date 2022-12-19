@@ -5,6 +5,7 @@ function Trains() {
     let overlay;
     let ctx;
     let t = 6 * 3600;
+
     this.initMap = async function () {
         map = new google.maps.Map(document.getElementById("map2"), {
             zoom: 8.5,
@@ -85,15 +86,9 @@ function Trains() {
                         this.canvas.height = sw.y - ne.y;
                     }
                 }
-
-
-
             }
 
-
             refresh(t) {
-
-
                 if (!pause) {
                     setTimeout(() => {
                         if (!pause) {
@@ -106,7 +101,6 @@ function Trains() {
                         }
                     }, 60);
                 }
-
 
                 if (!this.overlayProjection)
                     return;
@@ -133,7 +127,6 @@ function Trains() {
                     ctx.fill();
                 }
             }
-
         }
 
         overlay = new Overlay(bounds);
@@ -146,57 +139,59 @@ function Trains() {
     let stopTimes = null;
     let stops = null;
 
-    let circles = [];
-    function draw(t) {
-        let trains = getTrains(t);
-        document.getElementById('clock').innerHTML = secondToTime(t);
-        for (let i = 0; i < trains.length; i++) {
-            if (i < circles.length) {
-                circles[i].setCenter({ lat: trains[i][0], lng: trains[i][1] });
-                if (!circles[i].getMap())
-                    circles[i].setMap(map);
-            } else {
-                circles.push(new google.maps.Circle({
-                    strokeColor: "#F44336",
-                    strokeOpacity: 1,
-                    strokeWeight: 5,
-                    fillColor: "#F44336",
-                    fillOpacity: 1,
-                    map,
-                    center: { lat: trains[i][0], lng: trains[i][1] },
-                    radius: 50,
-                }));
-            }
-        }
-        for (let i = trains.length; i < circles.length; i++) {
-            circles[i].setMap(null);
-        }
+    // let circles = [];
+    // function draw(t) {
+    //     let trains = getTrains(t);
+    //     document.getElementById('clock').innerHTML = secondToTime(t);
+    //     for (let i = 0; i < trains.length; i++) {
+    //         if (i < circles.length) {
+    //             circles[i].setCenter({ lat: trains[i][0], lng: trains[i][1] });
+    //             if (!circles[i].getMap())
+    //                 circles[i].setMap(map);
+    //         } else {
+    //             circles.push(new google.maps.Circle({
+    //                 strokeColor: "#F44336",
+    //                 strokeOpacity: 1,
+    //                 strokeWeight: 5,
+    //                 fillColor: "#F44336",
+    //                 fillOpacity: 1,
+    //                 map,
+    //                 center: { lat: trains[i][0], lng: trains[i][1] },
+    //                 radius: 50,
+    //             }));
+    //         }
+    //     }
+    //     for (let i = trains.length; i < circles.length; i++) {
+    //         circles[i].setMap(null);
+    //     }
 
-        /*if (!pause) {
-            setTimeout(() => {
-                if (!pause) {
-                    currentSeconds += simulationSpeed;
-                    currentSeconds %= 86400; // 24 * 3600
-                    draw(currentSeconds)
-                }
-            }, 1);
-        }*/
-    }
+    // if (!pause) {
+    //     setTimeout(() => {
+    //         if (!pause) {
+    //             currentSeconds += simulationSpeed;
+    //             currentSeconds %= 86400; // 24 * 3600
+    //             draw(currentSeconds)
+    //         }
+    //     }, 1);
+    // }
+    // }
 
     function getTrains(t) {
         let results = [];
         for (let i = 0; i < stopTimes.length; i++) {
-            if (t >= stopTimes[i][2] + 15 && t <= stopTimes[i][3]) { // Trains in station
-                results.push(stops[stopTimes[i][1]]);
-            }
-            if (stopTimes[i][0] == stopTimes[i + 1]?.[0] && t > stopTimes[i][3] && t < stopTimes[i + 1][2] + 15) { // Trains between i and i+1
-                let p1 = stops[stopTimes[i][1]];
-                let p2 = stops[stopTimes[i + 1][1]];
-                let progression = (t - stopTimes[i][3]) / ((stopTimes[i + 1][2] + 15) - stopTimes[i][3])
-                results.push([
-                    p1[0] + progression * (p2[0] - p1[0]),
-                    p1[1] + progression * (p2[1] - p1[1])
-                ]);
+            if (checkedTrains.has(stopTimes[i][5]) && checkedAgencies.has(stopTimes[i][4])) {
+                if (t >= stopTimes[i][2] + 15 && t <= stopTimes[i][3]) { // Trains in station
+                    results.push(stops[stopTimes[i][1]]);
+                }
+                if (stopTimes[i][0] == stopTimes[i + 1]?.[0] && t > stopTimes[i][3] && t < stopTimes[i + 1][2] + 15) { // Trains between i and i+1
+                    let p1 = stops[stopTimes[i][1]];
+                    let p2 = stops[stopTimes[i + 1][1]];
+                    let progression = (t - stopTimes[i][3]) / ((stopTimes[i + 1][2] + 15) - stopTimes[i][3])
+                    results.push([
+                        p1[0] + progression * (p2[0] - p1[0]),
+                        p1[1] + progression * (p2[1] - p1[1])
+                    ]);
+                }
             }
         }
         for (let result of results) {
@@ -279,8 +274,8 @@ function Trains() {
         overlay.setMap(map);
         console.log("initMap22");
     }
-
 }
+
 let trains = new Trains();
 
 function updateClock(s) {
@@ -303,3 +298,262 @@ function updateClock(s) {
     document.getElementById('cffMinute').style.transform = mrotate;
     document.getElementById('cffSecond').style.transform = srotate;
 }
+
+// GUILLAUME'S THINGS, MAY BE STUPID IDK
+
+// Manage collapsibles
+
+var collapsibles = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < collapsibles.length; i++) {
+    collapsibles[i].addEventListener("click", function () {
+        var content = this.nextElementSibling;
+        content.classList.toggle("coll-content-showing");
+        content.classList.toggle("coll-content-hidden");
+        this.classList.toggle("coll-active");
+        this.classList.toggle("btn-primary");
+        this.classList.toggle("btn-outline-primary");
+    });
+}
+
+// Manage train categories
+
+async function manageTrains() {
+    let routeShortNames = await (await fetch('data/route_short_names.json')).json();
+    let colContainer = document.getElementById("col-container");
+
+    Object.keys(routeShortNames).forEach((key) => {
+        // counting
+        totalsTrains[key] = routeShortNames[key].length;
+        countersTrains[key] = 0;
+        // div (column)
+        let divCol = document.createElement('div');
+        divCol.classList.add('col');
+        // div overall
+        let divOverall = document.createElement('div');
+        divOverall.classList.add('form-check', 'mb-3');
+        // Overall
+        var overall = document.createElement('input');
+        overall.classList.add('form-check-input');
+        overall.type = 'checkbox';
+        overall.id = `key_${key}`;
+        overall.value = `key_${key}`;
+        overall.addEventListener("click", function () {
+            let cboxes = [];
+            let sibling = this.parentElement.nextElementSibling;
+
+            while (sibling) {
+                let cbox = sibling.firstElementChild;
+                if (cbox.type === 'checkbox') {
+                    cboxes.push(cbox);
+                }
+                sibling = sibling.nextElementSibling;
+            }
+
+            if (this.checked) {
+                cboxes.forEach((cbox) => {
+                    cbox.checked = true;
+                    countersTrains[key] = totalsTrains[key];
+                    checkedTrains.add(cbox.value);
+                });
+            }
+            else {
+                cboxes.forEach((cbox) => {
+                    cbox.checked = false;
+                    countersTrains[key] = 0;
+                    checkedTrains.delete(cbox.value);
+                });
+            }
+        });
+        // label
+        let labelOverall = document.createElement('label');
+        labelOverall.classList.add('fw-bold', 'mb-0', 'text-decoration-underline');
+        labelOverall.htmlFor = `key_${key}`;
+        labelOverall.innerText = key;
+        // Adding
+        divOverall.appendChild(overall);
+        divOverall.appendChild(labelOverall);
+        divCol.appendChild(divOverall);
+        // Checkboxes
+        routeShortNames[key].forEach((trainType) => {
+            // div cbox
+            let divCbox = document.createElement('div');
+            divCbox.classList.add('form-check');
+            // input (switch)
+            var cbox = document.createElement('input');
+            cbox.classList.add('form-check-input');
+            cbox.type = 'checkbox';
+            cbox.id = trainType;
+            cbox.value = trainType;
+            if (alreadyCheckedTrains.includes(trainType)) {
+                cbox.checked = true;
+                countersTrains[key]++;
+            }
+            cbox.addEventListener("click", function () {
+                if (this.checked) {
+                    countersTrains[key]++;
+                    checkedTrains.add(this.value);
+                }
+                else {
+                    countersTrains[key]--
+                    checkedTrains.delete(this.value);
+                }
+
+                if (countersTrains[key] === 0) {
+                    overall.checked = false;
+                    overall.indeterminate = false;
+                }
+                else if (countersTrains[key] === totalsTrains[key]) {
+                    overall.checked = true;
+                    overall.indeterminate = false;
+                }
+                else {
+                    overall.checked = false;
+                    overall.indeterminate = true;
+                }
+            });
+            // label
+            var label = document.createElement('label');
+            label.classList.add('form-check-label');
+            label.htmlFor = trainType;
+            label.innerText = trainType;
+            // Adding
+            divCbox.appendChild(cbox);
+            divCbox.appendChild(label);
+            divCol.appendChild(divCbox);
+        })
+        // Reevaluating overall checked
+        if (countersTrains[key] === 0) {
+            overall.checked = false;
+            overall.indeterminate = false;
+        }
+        else if (countersTrains[key] === totalsTrains[key]) {
+            overall.checked = true;
+            overall.indeterminate = false;
+        }
+        else {
+            overall.checked = false;
+            overall.indeterminate = true;
+        }
+        // Adding
+        colContainer.appendChild(divCol);
+    });
+
+
+}
+manageTrains();
+
+const alreadyCheckedTrains = ['IC1', 'IC2', 'IC3', 'IC4', 'IC5', 'IC6', 'IC8', 'IC21', 'IC51', 'IC61', 'TGV', 'ICE', 'm1', 'm2'];
+let checkedTrains = new Set(alreadyCheckedTrains);
+
+let totalsTrains = {};
+let countersTrains = {};
+
+// Manage agency categories
+
+async function manageAgencies() {
+    let agencyNames = await (await fetch('data/agency_names.json')).json();
+    let cboxContainer = document.getElementById("cbox-container");
+
+    totalAgencies = agencyNames.length;
+
+    checkedAgencies = new Set(agencyNames);
+
+    // div overall
+    let divOverall = document.createElement('div');
+    divOverall.classList.add('form-check', 'mb-2');
+    // Overall
+    var overall = document.createElement('input');
+    overall.classList.add('form-check-input');
+    overall.type = 'checkbox';
+    overall.id = 'All';
+    overall.checked = true;
+    overall.addEventListener("click", function () {
+        let cboxes = [];
+        let sibling = this.parentElement.nextElementSibling;
+
+        while (sibling) {
+            let cbox = sibling.firstElementChild;
+            if (cbox.type === 'checkbox') {
+                cboxes.push(cbox);
+            }
+            sibling = sibling.nextElementSibling;
+        }
+
+        if (this.checked) {
+            cboxes.forEach((cbox) => {
+                cbox.checked = true;
+                counterAgencies = totalAgencies;
+                checkedAgencies.add(cbox.value);
+            });
+        }
+        else {
+            cboxes.forEach((cbox) => {
+                cbox.checked = false;
+                counterAgencies = 0;
+                checkedAgencies.delete(cbox.value);
+            });
+        }
+    });
+    // label
+    let labelOverall = document.createElement('label');
+    labelOverall.classList.add('fw-bold', 'mb-0');
+    labelOverall.htmlFor = 'All';
+    labelOverall.innerText = 'Toggle all';
+    // Adding
+    divOverall.appendChild(overall);
+    divOverall.appendChild(labelOverall);
+    cboxContainer.appendChild(divOverall);
+    // Checkboxes
+    agencyNames.forEach((name) => {
+        // div cbox
+        let divCbox = document.createElement('div');
+        divCbox.classList.add('form-check');
+        // input (switch)
+        var cbox = document.createElement('input');
+        cbox.classList.add('form-check-input');
+        cbox.type = 'checkbox';
+        cbox.id = name;
+        cbox.value = name;
+        cbox.checked = true;
+        cbox.addEventListener("click", function () {
+            if (this.checked) {
+                counterAgencies++;
+                checkedAgencies.add(this.value);
+            }
+            else {
+                counterAgencies--
+                checkedAgencies.delete(this.value);
+            }
+
+            if (counterAgencies === 0) {
+                overall.checked = false;
+                overall.indeterminate = false;
+            }
+            else if (counterAgencies === totalAgencies) {
+                overall.checked = true;
+                overall.indeterminate = false;
+            }
+            else {
+                overall.checked = false;
+                overall.indeterminate = true;
+            }
+        });
+        // label
+        var label = document.createElement('label');
+        label.classList.add('form-check-label');
+        label.htmlFor = name;
+        label.innerText = name;
+        // Adding
+        divCbox.appendChild(cbox);
+        divCbox.appendChild(label);
+        cboxContainer.appendChild(divCbox);
+    });
+}
+manageAgencies();
+
+let checkedAgencies;
+
+let totalAgencies;
+let counterAgencies;

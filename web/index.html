@@ -20,9 +20,9 @@
         <div class="section position-relative">
             <div class="menu">
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchDarkMode"
                         onclick="toggleDarkMode();" checked>
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Dark mode</label>
+                    <label class="form-check-label" for="flexSwitchDarkMode">Dark mode</label>
                 </div>
             </div>
             <div class="text-center mb-5">
@@ -200,10 +200,24 @@
                         </div>
                     </div>
                     <p class="text-center"><span id="clock">Loading</span>
-                        <span style="width: 0px; display: inline-block"><button type="button" class="btn btn-link"
-                                onclick="trains.resetTime()" title="Reset time to now"><i
-                                    class="bi bi-arrow-counterclockwise"></i></button></span>
+                        <span style="width: 0px; display: inline-block">
+                            <button type="button" class="btn btn-link" onclick="trains.resetTime()"
+                                title="Reset time to now">
+                                <i class="bi bi-arrow-counterclockwise"> </i>
+                            </button>
+                        </span>
                     </p>
+
+                    <button type="button" class="collapsible coll-active btn btn-primary fw-bold">Train types</button>
+                    <div class="coll-content-showing py-3 pe-2">
+                        <div class="container">
+                            <div class="row row-cols-4" id="col-container"></div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="collapsible btn btn-outline-primary mt-2 fw-bold">Agencies</button>
+                    <div class="coll-content-hidden py-3 px-2" id="cbox-container"></div>
+
                 </div>
                 <div id="map2" class="map scrollable-content"></div>
             </div>
