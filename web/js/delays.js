@@ -97,7 +97,6 @@ function Delays() {
                         <b>Cancelled train:</b> ${delay.nbCancelled}
                         `,
                     });
-                    console.log("Click");
                     popup.open({
                         map: map,
                         anchor: linePath
@@ -165,8 +164,6 @@ function Delays() {
             document.getElementById('subOptionDay').style.display = 'block';
             document.getElementById('subOptionHour').style.display = 'none';
             subOption = document.getElementById('subOptionDayRange').value;
-            console.log(document.getElementById('subOptionDay'))
-            console.log(subOption);
         } else if (allOrDayOrHour == 'hour') {
             document.getElementById('subOptionDay').style.display = 'none';
             document.getElementById('subOptionHour').style.display = 'block';
