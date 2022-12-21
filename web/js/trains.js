@@ -272,8 +272,8 @@ function Trains() {
                 gestureHandling: 'greedy'
             });
             overlay.setMap(map);
-        } catch {
-
+        } catch (error) {
+            console.error("trains error: ", error)
         }
     }
 }
