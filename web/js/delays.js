@@ -82,7 +82,7 @@ function Delays() {
                     geodesic: true,
                     strokeColor: lerpColor("#1A85FF", "#FE6100", Math.min(delay.totalDelay / delay.nbTrain / 60 / 5, 1)),
                     strokeOpacity: 1.0,
-                    strokeWeight: 1 + (delay.totalDelay / delay.nbTrain) / 600,
+                    strokeWeight: 1 + (delay.totalDelay / delay.nbTrain) / 200,
                 });
 
                 linePath.addListener('mouseover', (e) => {
