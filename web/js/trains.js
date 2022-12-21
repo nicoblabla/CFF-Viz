@@ -114,7 +114,7 @@ function Trains() {
                 ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 document.getElementById('clock').innerHTML = secondToTime(t);
                 updateClock(t);
-                ctx.fillStyle = "red";
+                ctx.fillStyle = "#FE6100";
                 for (let i = 0; i < trains.length; i++) {
 
                     const pos = this.overlayProjection.fromLatLngToDivPixel(

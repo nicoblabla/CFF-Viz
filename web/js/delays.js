@@ -80,7 +80,7 @@ function Delays() {
                 const linePath = new google.maps.Polyline({
                     path: [stops[delay.stationA], stops[delay.stationB]],
                     geodesic: true,
-                    strokeColor: lerpColor("#00FF00", "#FF0000", Math.min(delay.totalDelay / delay.nbTrain / 60 / 5, 1)),
+                    strokeColor: lerpColor("#1A85FF", "#FE6100", Math.min(delay.totalDelay / delay.nbTrain / 60 / 5, 1)),
                     strokeOpacity: 1.0,
                     strokeWeight: 1 + (delay.totalDelay / delay.nbTrain) / 600,
                 });
@@ -125,8 +125,8 @@ function Delays() {
 
                 const circle = new google.maps.Circle({
                     geodesic: true,
-                    strokeColor: lerpColor("#00FF00", "#FF0000", Math.min(delay.totalDelay / delay.nbTrain / 60 / 5, 1)),
-                    fillColor: lerpColor("#00FF00", "#FF0000", Math.min(delay.totalDelay / delay.nbTrain / 60 / 5, 1)),
+                    strokeColor: lerpColor("#1A85FF", "#FE6100", Math.min(delay.totalDelay / delay.nbTrain / 60 / 5, 1)),
+                    fillColor: lerpColor("#1A85FF", "#FE6100", Math.min(delay.totalDelay / delay.nbTrain / 60 / 5, 1)),
                     strokeOpacity: 1.0,
                     radius: (1 + (delay.totalDelay / delay.nbTrain) * 5),
                     fillOpacity: 1,
