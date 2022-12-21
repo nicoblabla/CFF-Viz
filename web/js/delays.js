@@ -125,10 +125,10 @@ function Delays() {
 
                 const circle = new google.maps.Circle({
                     geodesic: true,
-                    strokeColor: lerpColor("#00FF00", "#FF0000", delay_in_minutes / max),
-                    fillColor: lerpColor("#00FF00", "#FF0000", delay_in_minutes / max),
+                    strokeColor: lerpColor("#00FF00", "#FF0000", Math.min(delay.totalDelay / delay.nbTrain / 60 / 5, 1)),
+                    fillColor: lerpColor("#00FF00", "#FF0000", Math.min(delay.totalDelay / delay.nbTrain / 60 / 5, 1)),
                     strokeOpacity: 1.0,
-                    radius: (delay.totalDelay / delay.nbTrain),
+                    radius: (1 + (delay.totalDelay / delay.nbTrain) * 5),
                     fillOpacity: 1,
                     center: stops[delay.stationName],
                 });
