@@ -286,26 +286,25 @@ img[alt="Google"] {
 
 /* Style the button that is used to open and close the collapsible content */
 .collapsible {
-  background-color: #eee;
-  color: #444;
   cursor: pointer;
   padding: 18px;
   width: 100%;
-  border: none;
   text-align: left;
   outline: none;
-  font-size: 15px;
 }
 
 .collapsible:after {
   content: "–";
   float: right;
   font-weight: bold;
+  line-height: 1.5rem;
 }
 
 .coll-active:after {
   content: "+";
   font-weight: bold;
+  font-size: 20px;
+  line-height: 1.2rem;
 }
 
 /* Style the collapsible content. Note: hidden by default */
@@ -321,7 +320,7 @@ img[alt="Google"] {
 }
 
 .section-home {
-  background-image: url('../lines2.png');
+  background-image: url("../lines2.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
