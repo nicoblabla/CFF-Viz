@@ -16,8 +16,11 @@ function Trains() {
         });
 
         const bounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(45.7769477403, 6.02260949059),
-            new google.maps.LatLng(47.8308275417, 10.4427014502)
+            //new google.maps.LatLng(45.7769477403, 6.02260949059), // Switzerland only
+            //new google.maps.LatLng(47.8308275417, 10.4427014502)
+
+            new google.maps.LatLng(41.437517, -2.019690),
+            new google.maps.LatLng(50.005379, 10.493168)
         );
         let previousTime = (new Date()).getTime();
 
