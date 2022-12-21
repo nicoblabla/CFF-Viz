@@ -320,7 +320,7 @@ img[alt="Google"] {
   overflow: hidden;
 }
 
-.section-home::before {
+.section-home {
   background-image: url('../lines2.png');
   background-repeat: no-repeat;
   background-position: center center;

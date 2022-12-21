@@ -17,7 +17,8 @@
 
 <body>
     <div id="fullpage">
-        <div class="section position-relative section-home">
+        <div class="section position-relative">
+            <div class="section-home"></div>
             <div class="menu pe-3">
                 <div class="form-check form-switch">
                     <input class="form-check-input" style="font-size:25px;" type="checkbox" role="switch"
@@ -28,7 +29,7 @@
                 </div>
             </div>
             <div class="text-center mb-5">
-                <img id="logo" height="200px" class="mb-4"/>
+                <img id="logo" height="200px" class="mb-4" />
                 <h5>By Nicola Cosi, Guillaume Digier and Nicolas Laoun</h5>
             </div>
             <div class="d-flex justify-content-around align-items-center">
@@ -313,6 +314,8 @@
                 for (let node of nodes) {
                     node.style.filter = filter;
                 }
+
+                document.getElementsByClassName('section-home')[0].style.opacity = darkmode.inDarkMode ? "0.5" : "0";
             }
         </script>
 </body>

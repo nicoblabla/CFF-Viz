@@ -80,7 +80,7 @@ function Delays() {
                 const linePath = new google.maps.Polyline({
                     path: [stops[delay.stationA], stops[delay.stationB]],
                     geodesic: true,
-                    strokeColor: lerpColor("#00FF00", "#FF0000", delay_in_minutes / max),
+                    strokeColor: lerpColor("#00FF00", "#FF0000", Math.min(delay.totalDelay / delay.nbTrain / 60 / 5, 1)),
                     strokeOpacity: 1.0,
                     strokeWeight: 1 + (delay.totalDelay / delay.nbTrain) / 600,
                 });
@@ -91,10 +91,12 @@ function Delays() {
                     }
                     popup = new google.maps.InfoWindow({
                         content: `
-                        <h2>${delay.stationA} → ${delay.stationB}</h2>
+                        <h2 style="color: black">${delay.stationA} → ${delay.stationB}</h2>
+                        <div style="color: black">
                         <b>Train count:</b> ${delay.nbTrain}<br>
                         <b>Mean delay:</b> ${Math.round(delay.totalDelay / delay.nbTrain / 60)} minutes<br>
                         <b>Cancelled train:</b> ${delay.nbCancelled}
+                        </div>
                         `,
                     });
                     popup.open({
