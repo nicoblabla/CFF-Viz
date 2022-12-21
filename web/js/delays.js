@@ -74,7 +74,7 @@ function Delays() {
                     continue;
                 }
                 if (delay.nbTrain < 10) {
-                    //break;
+                    //continue;
                 }
 
                 const linePath = new google.maps.Polyline({
@@ -85,7 +85,7 @@ function Delays() {
                     strokeWeight: 1 + (delay.totalDelay / delay.nbTrain) / 600,
                 });
 
-                linePath.addListener('click', (e) => {
+                linePath.addListener('mouseover', (e) => {
                     if (popup) {
                         popup.setMap(null);
                     }
@@ -119,6 +119,9 @@ function Delays() {
                 if (!(delay.stationName in stops)) {
                     continue;
                 }
+                if (delay.nbTrain < 10) {
+                    continue;
+                }
 
                 const circle = new google.maps.Circle({
                     geodesic: true,
@@ -128,6 +131,27 @@ function Delays() {
                     radius: (delay.totalDelay / delay.nbTrain),
                     fillOpacity: 1,
                     center: stops[delay.stationName],
+                });
+
+                circle.addListener('mouseover', (e) => {
+                    if (popup) {
+                        popup.setMap(null);
+                    }
+                    popup = new google.maps.InfoWindow({
+                        content: `
+                        <h2 style="color: black">${delay.stationName}</h2>
+                        <div style="color: black">
+                        <b>Train count:</b> ${delay.nbTrain}<br>
+                        <b>Mean delay:</b> ${Math.round(delay.totalDelay / delay.nbTrain / 60)} minutes<br>
+                        <b>Cancelled train:</b> ${delay.nbCancelled}
+                        </div>
+                        `,
+                    });
+                    popup.open({
+                        map: map,
+                        anchor: circle
+                    });
+                    popup.setPosition(e.latLng)
                 });
 
                 circle.setMap(map);
