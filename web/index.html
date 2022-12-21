@@ -21,14 +21,14 @@
             <div class="menu pe-3">
                 <div class="form-check form-switch">
                     <input class="form-check-input" style="font-size:25px;" type="checkbox" role="switch"
-                        id="flexSwitchDarkMode" onclick="toggleDarkMode();" checked>
+                        id="flexSwitchDarkMode" onclick="toggleDarkMode();">
                     <label class="form-check-label" for="flexSwitchDarkMode">
-                        <i class="bi bi-moon-stars" style="font-size:25px;" id="iconDarkMode"></i>
+                        <i class="bi" style="font-size:25px;" id="iconDarkMode"></i>
                     </label>
                 </div>
             </div>
             <div class="text-center mb-5">
-                <h1 class="display-1">CFF Viz</h1>
+                <img id="logo" height="220px" class="mb-4"/>
                 <h5>By Nicola Cosi, Guillaume Digier and Nicolas Laoun</h5>
             </div>
             <div class="d-flex justify-content-around align-items-center">
@@ -281,21 +281,33 @@
             function toggleDarkMode() {
                 darkmode.toggleDarkMode();
                 inverseColors();
-
-                document.getElementById("iconDarkMode").classList.toggle('bi-sun');
-                document.getElementById("iconDarkMode").classList.toggle('bi-moon-stars');
             }
 
             function inverseColors() {
                 let filter = "invert(0)";
                 let theme = "634d8c221b2996df";
+                let logo = "img/cff_viz_black.png";
+                let iconAdd = "bi-sun";
+                let iconRemove = "bi-moon-stars";
+                let checked = false;
+
                 if (darkmode.inDarkMode) {
                     filter = "invert(1)";
                     theme = "ba8d9b8c2bd0cb9d";
+                    logo = "img/cff_viz_white.png";
+                    iconAdd = "bi-moon-stars";
+                    iconRemove = "bi-sun";
+                    checked = true;
                 }
 
                 delays.setMapTheme(theme);
                 trains.setMapTheme(theme);
+
+                document.getElementById("logo").src = logo;
+                document.getElementById("flexSwitchDarkMode").checked = checked;
+
+                document.getElementById("iconDarkMode").classList.add(iconAdd);
+                document.getElementById("iconDarkMode").classList.remove(iconRemove);
 
                 let nodes = document.querySelectorAll('.invert-on-darkmode');
                 for (let node of nodes) {
