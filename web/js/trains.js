@@ -22,6 +22,7 @@ function Trains() {
             new google.maps.LatLng(41.437517, -2.019690),
             new google.maps.LatLng(50.005379, 10.493168)
         );
+        window.bounds = bounds;
         let previousTime = (new Date()).getTime();
 
         class Overlay extends google.maps.OverlayView {
@@ -132,6 +133,7 @@ function Trains() {
         }
 
         overlay = new Overlay(bounds);
+        window.Overlay = Overlay;
 
         overlay.setMap(map);
 
@@ -274,6 +276,10 @@ function Trains() {
                 mapId: theme,
                 gestureHandling: 'greedy'
             });
+            if (window.Overlay) {
+                overlay = new window.Overlay(window.bounds);
+            }
+
             overlay.setMap(map);
         } catch (error) {
             console.error("trains error: ", error)
