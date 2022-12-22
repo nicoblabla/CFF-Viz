@@ -17,18 +17,18 @@
 </head>
 
 <body>
+    <div class="menu pe-3">
+        <div class="form-check form-switch">
+            <input class="form-check-input" style="font-size:25px;" type="checkbox" role="switch"
+                id="flexSwitchDarkMode" onclick="toggleDarkMode();">
+            <label class="form-check-label" for="flexSwitchDarkMode">
+                <i class="bi" style="font-size:25px;" id="iconDarkMode"></i>
+            </label>
+        </div>
+    </div>
     <div id="fullpage">
         <div class="section position-relative">
             <div class="section-home"></div>
-            <div class="menu pe-3">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" style="font-size:25px;" type="checkbox" role="switch"
-                        id="flexSwitchDarkMode" onclick="toggleDarkMode();">
-                    <label class="form-check-label" for="flexSwitchDarkMode">
-                        <i class="bi" style="font-size:25px;" id="iconDarkMode"></i>
-                    </label>
-                </div>
-            </div>
             <div class="text-center mb-5">
                 <img id="logo" height="200px" class="mb-4" />
                 <h5>By Nicola Cosi, Guillaume Digier and Nicolas Laoun</h5>
@@ -173,7 +173,7 @@
         <div class="section">
             <div class="position-relative" style="height: 100vh">
                 <div class="left-side">
-                    <div class="h2">Trains vizualisation</div>
+                    <div class="h2" style="font-size: 1.9rem;">Trains vizualisation</div>
                     <p align="justify">
                         This interactive map shows the real-time locations of trains based on the time you select. You
                         can adjust the frequency
