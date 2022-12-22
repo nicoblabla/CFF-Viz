@@ -13,7 +13,7 @@ function Delays() {
             zoom: 8.5,
             center: { lat: 46.773357, lng: 8.2143418 },
             disableDefaultUI: true,
-            mapId: "ba8d9b8c2bd0cb9d",
+            mapId: darkmode.inDarkMode ? "ba8d9b8c2bd0cb9d" : "634d8c221b2996df",
             gestureHandling: 'greedy'
         });
 
