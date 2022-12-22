@@ -280,6 +280,7 @@ img[alt="Google"] {
   position: fixed;
   top: 20px;
   right: 10px;
+  z-index: 69;
 }
 
 /* GUILLAUME'S THINGS, MAY BE STUPID IDK */
