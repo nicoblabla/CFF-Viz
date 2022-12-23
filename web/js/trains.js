@@ -41,15 +41,6 @@ function Trains() {
                 this.div.style.borderStyle = "none";
                 this.div.style.borderWidth = "0px";
                 this.div.style.position = "absolute";
-
-                // Create the img element and attach it to the div.
-                /*const img = document.createElement("img");
-
-                img.src = this.image;
-                img.style.width = "100%";
-                img.style.height = "100%";
-                img.style.position = "absolute";
-                this.div.appendChild(img);*/
                 this.canvas = document.createElement('canvas');
                 this.canvas.width = "100%";
                 this.canvas.height = "100%";
@@ -142,43 +133,6 @@ function Trains() {
     let currentSeconds = null;
     let stopTimes = null;
     let stops = null;
-
-    // let circles = [];
-    // function draw(t) {
-    //     let trains = getTrains(t);
-    //     document.getElementById('clock').innerHTML = secondToTime(t);
-    //     for (let i = 0; i < trains.length; i++) {
-    //         if (i < circles.length) {
-    //             circles[i].setCenter({ lat: trains[i][0], lng: trains[i][1] });
-    //             if (!circles[i].getMap())
-    //                 circles[i].setMap(map);
-    //         } else {
-    //             circles.push(new google.maps.Circle({
-    //                 strokeColor: "#F44336",
-    //                 strokeOpacity: 1,
-    //                 strokeWeight: 5,
-    //                 fillColor: "#F44336",
-    //                 fillOpacity: 1,
-    //                 map,
-    //                 center: { lat: trains[i][0], lng: trains[i][1] },
-    //                 radius: 50,
-    //             }));
-    //         }
-    //     }
-    //     for (let i = trains.length; i < circles.length; i++) {
-    //         circles[i].setMap(null);
-    //     }
-
-    // if (!pause) {
-    //     setTimeout(() => {
-    //         if (!pause) {
-    //             currentSeconds += simulationSpeed;
-    //             currentSeconds %= 86400; // 24 * 3600
-    //             draw(currentSeconds)
-    //         }
-    //     }, 1);
-    // }
-    // }
 
     function getTrains(t) {
         let results = [];
